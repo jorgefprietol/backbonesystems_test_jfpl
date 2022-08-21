@@ -17,25 +17,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         CodigosPostales::truncate();
-        /*
-                $codigopostal = array(
-                    'd_codigo' =>  01000,
-                    "d_asenta" => "San �ngel",
-                    "d_tipo_asenta" => "Colonia",
-                    "D_mnpio" => "lvaro",
-                    "d_estado" => "Obreg",
-                    "d_ciudad" => "Ciudad de",
-                    "d_CP" => "Ciudad",
-                    "c_estado" => 01001,
-                    "c_oficina" => 9,
-                    "c_CP" => 01001,
-                    "c_tipo_asenta" => 0001,
-                    "c_mnpio" => 0001,
-                    "id_asenta_cpcons" => 0001,
-                    "d_zona" => "Urbano",
-                    "c_cve_ciudad" => 01
-                );
-        */
         $heading = true;
         $input_file = fopen(public_path("CPdescarga.txt"), "r");
         while (($record = fgetcsv($input_file, 500, "|")) !== FALSE)
