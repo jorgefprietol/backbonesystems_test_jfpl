@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CodigosPostales;
+use function PHPUnit\Framework\isEmpty;
 
 class CodigosPostalesController extends Controller
 {
@@ -10,7 +11,7 @@ class CodigosPostalesController extends Controller
 
         $cp = CodigosPostales::where('d_codigo',$zip_code)->get();
 
-        if($cp){
+        if($cp->count() > 0){
             foreach ($cp as $c){
                 $settlements[] =
                     [
@@ -22,7 +23,7 @@ class CodigosPostalesController extends Controller
                         ]
                     ];
             }
-            $response = response()->json([
+            return response()->json([
                 "zip_code" => $cp[0]->d_codigo,
                 "locality" => mb_strtoupper($cp[0]->d_estado,'utf-8'),
                 "federal_entity"  => [
@@ -36,10 +37,8 @@ class CodigosPostalesController extends Controller
                     "name"=> mb_strtoupper($cp[0]->D_mnpio,'utf-8')
                 ]
             ]);
-
-            return $response;
         }
 
-        return ["Mesagge" => "No existe El Código Postal Solicitado"];
+        return response()->json(["Mesagge" => "No existe El CP Solicitado"]);
     }
 }
