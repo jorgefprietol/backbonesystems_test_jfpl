@@ -27,10 +27,10 @@ class CodigosPostalesController extends Controller
             }
             return response()->json([
                 "zip_code" => $cp[0]->d_codigo,
-                "locality" => mb_strtoupper($cp[0]->d_estado,'utf-8'),
+                "locality" => mb_strtoupper($cp[0]->d_ciudad,'utf-8'),
                 "federal_entity"  => [
                     "key" => (int)$cp[0]->c_estado,
-                    "name" => mb_strtoupper($cp[0]->d_ciudad,'utf-8'),
+                    "name" => mb_strtoupper($cp[0]->d_estado,'utf-8'),
                     "code" => null
                 ],
                 "settlements" => $settlements,
