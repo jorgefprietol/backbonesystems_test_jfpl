@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\CodigosPostales;
+use Illuminate\Support\Facades\Cache;
 
 class CodigosPostalesController extends Controller
 {
     public function getByCodigoPostal($zip_code){
 
 
-        $cp = CodigosPostales::where('d_codigo',$zip_code)->get(['d_codigo', 'd_estado', 'c_estado','d_ciudad','c_mnpio','D_mnpio','id_asenta_cpcons','d_asenta','d_zona','d_tipo_asenta']);
-
+        $cp = Cache::remember('CodigosPostales'.$zip_code, 15, function () use ($zip_code) {
+            return CodigosPostales::where('d_codigo',$zip_code)->get(['d_codigo', 'd_estado', 'c_estado','d_ciudad','c_mnpio','D_mnpio','id_asenta_cpcons','d_asenta','d_zona','d_tipo_asenta']);
+        });
         if($cp->count() > 0){
             foreach ($cp as $c){
                 $settlements[] =
