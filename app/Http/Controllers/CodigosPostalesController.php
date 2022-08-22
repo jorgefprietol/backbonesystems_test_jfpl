@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\CodigosPostales;
-use function PHPUnit\Framework\isEmpty;
 
 class CodigosPostalesController extends Controller
 {
     public function getByCodigoPostal($zip_code){
 
-        $cp = CodigosPostales::where('d_codigo',$zip_code)->get();
+
+        $cp = CodigosPostales::where('d_codigo',$zip_code)->get(['d_codigo', 'd_estado', 'c_estado','d_ciudad','c_mnpio','D_mnpio','id_asenta_cpcons','d_asenta','d_zona','d_tipo_asenta']);
 
         if($cp->count() > 0){
             foreach ($cp as $c){
