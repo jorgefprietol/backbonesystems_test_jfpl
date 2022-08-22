@@ -3,3 +3,4 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/jfpl2021/public_html/
     - /bin/cp -R images $DEPLOYPATH
+    - /bin/rsync -av public/ $DEPLOYPATH
